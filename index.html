@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8039443538191558"
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8039443538191558"
      crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q50Q80EVB8"></script>
@@ -12,16 +12,13 @@
 
   gtag('config', 'G-Q50Q80EVB8');
 </script>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "rvso53w3pe");
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>封面生成器</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -343,6 +340,40 @@
       background: #f0f6ff;
     }
 
+    /* 字体预览样式 */
+    #fontSelect option[value="Microsoft YaHei"] { font-family: "Microsoft YaHei"; }
+    #fontSelect option[value="SimHei"] { font-family: "SimHei"; }
+    #fontSelect option[value="SimSun"] { font-family: "SimSun"; }
+    #fontSelect option[value="KaiTi"] { font-family: "KaiTi"; }
+    #fontSelect option[value="FangSong"] { font-family: "FangSong"; }
+    #fontSelect option[value="STKaiti"] { font-family: "STKaiti"; }
+    #fontSelect option[value="STXingkai"] { font-family: "STXingkai"; }
+    #fontSelect option[value="STSong"] { font-family: "STSong"; }
+    #fontSelect option[value="STFangsong"] { font-family: "STFangsong"; }
+    #fontSelect option[value="STHeiti"] { font-family: "STHeiti"; }
+    #fontSelect option[value="LiSu"] { font-family: "LiSu"; }
+    #fontSelect option[value="YouYuan"] { font-family: "YouYuan"; }
+    #fontSelect option[value="Arial"] { font-family: "Arial"; }
+    #fontSelect option[value="Arial Black"] { font-family: "Arial Black"; }
+    #fontSelect option[value="Times New Roman"] { font-family: "Times New Roman"; }
+    #fontSelect option[value="Georgia"] { font-family: "Georgia"; }
+    #fontSelect option[value="Impact"] { font-family: "Impact"; }
+    #fontSelect option[value="Trebuchet MS"] { font-family: "Trebuchet MS"; }
+    #fontSelect option[value="Verdana"] { font-family: "Verdana"; }
+    #fontSelect option[value="Helvetica"] { font-family: "Helvetica"; }
+    #fontSelect option[value="Comic Sans MS"] { font-family: "Comic Sans MS"; }
+    #fontSelect option[value="Courier New"] { font-family: "Courier New"; }
+    #fontSelect option[value="Noto Sans SC"] { font-family: "Noto Sans SC"; }
+    #fontSelect option[value="Noto Serif SC"] { font-family: "Noto Serif SC"; }
+    #fontSelect option[value="Ma Shan Zheng"] { font-family: "Ma Shan Zheng"; }
+    #fontSelect option[value="ZCOOL XiaoWei"] { font-family: "ZCOOL XiaoWei"; }
+    #fontSelect option[value="ZCOOL KuaiLe"] { font-family: "ZCOOL KuaiLe"; }
+
+    #removeImageBtn:hover {
+      background: #ff3742 !important;
+      transform: translateY(-1px);
+    }
+
     @media (max-width: 768px) {
       .controls-panel {
         padding: 20px;
@@ -394,6 +425,9 @@
         <div class="form-row">
           <label>上传背景图片</label>
           <input type="file" id="imageUpload" accept="image/*">
+          <button type="button" id="removeImageBtn" style="display: none; margin-top: 10px; padding: 8px 16px; background: #ff4757; color: white; border: none; border-radius: 6px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;">
+             删除图片
+          </button>
         </div>
         <div class="form-row">
           <label>背景颜色</label>
@@ -412,18 +446,40 @@
         </div>
         <div class="form-row">
           <label>字体选择</label>
-          <select id="fontSelect">
-            <option value="Microsoft YaHei">微软雅黑 (推荐)</option>
-            <option value="SimHei">黑体</option>
-            <option value="SimSun">宋体</option>
-            <option value="KaiTi">楷体</option>
-            <option value="FangSong">仿宋</option>
-            <option value="STKaiti">华文楷体</option>
-            <option value="STXingkai">华文行楷</option>
-            <option value="Arial">Arial</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Impact">Impact</option>
-            <option value="Trebuchet MS">Trebuchet MS</option>
+          <select id="fontSelect" style="font-family: var(--selected-font, 'Microsoft YaHei');"
+            <optgroup label="中文字体">
+              <option value="Microsoft YaHei">微软雅黑 (推荐)</option>
+              <option value="SimHei">黑体</option>
+              <option value="SimSun">宋体</option>
+              <option value="KaiTi">楷体</option>
+              <option value="FangSong">仿宋</option>
+              <option value="STKaiti">华文楷体</option>
+              <option value="STXingkai">华文行楷</option>
+              <option value="STSong">华文宋体</option>
+              <option value="STFangsong">华文仿宋</option>
+              <option value="STHeiti">华文黑体</option>
+              <option value="LiSu">隶书</option>
+              <option value="YouYuan">幼圆</option>
+            </optgroup>
+            <optgroup label="英文字体">
+              <option value="Arial">Arial</option>
+              <option value="Arial Black">Arial Black</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Impact">Impact</option>
+              <option value="Trebuchet MS">Trebuchet MS</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="Comic Sans MS">Comic Sans MS</option>
+              <option value="Courier New">Courier New</option>
+            </optgroup>
+            <optgroup label="Web字体">
+              <option value="Noto Sans SC">思源黑体</option>
+              <option value="Noto Serif SC">思源宋体</option>
+              <option value="Ma Shan Zheng">马善政毛笔体</option>
+              <option value="ZCOOL XiaoWei">站酷小薇体</option>
+              <option value="ZCOOL KuaiLe">站酷快乐体</option>
+            </optgroup>
           </select>
         </div>
         <div class="form-row inline">
@@ -468,11 +524,25 @@
         <div class="form-row">
           <label>选择封面尺寸</label>
           <select id="sizeSelect">
+            <option value="900x383">公众号封面 (900×383)</option>
             <option value="1500x600">Notion 封面 (1500×600)</option>
             <option value="1080x1080">正方形 (1080×1080)</option>
             <option value="1920x1080">视频封面 (1920×1080)</option>
             <option value="1080x1920">手机封面 (1080×1920)</option>
+            <option value="custom">自定义尺寸</option>
           </select>
+        </div>
+        <div id="customSizeRow" style="display: none;">
+          <div class="form-row inline">
+            <label>宽度</label>
+            <input type="number" id="customWidth" value="1200" min="100" max="4000">
+            <span>px</span>
+          </div>
+          <div class="form-row inline">
+            <label>高度</label>
+            <input type="number" id="customHeight" value="800" min="100" max="4000">
+            <span>px</span>
+          </div>
         </div>
       </div>
 
@@ -490,13 +560,30 @@
     let uploadedImg = null;
 
     document.getElementById('imageUpload').addEventListener('change', function(e) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        uploadedImg = new Image();
-        uploadedImg.onload = () => generateCover();
-        uploadedImg.src = event.target.result;
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      if (e.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          uploadedImg = new Image();
+          uploadedImg.onload = () => {
+            document.getElementById('removeImageBtn').style.display = 'block';
+            generateCover();
+          };
+          uploadedImg.src = event.target.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
+    });
+
+    // 删除图片功能
+    document.getElementById('removeImageBtn').addEventListener('click', function() {
+      uploadedImg = null;
+      document.getElementById('imageUpload').value = '';
+      document.getElementById('removeImageBtn').style.display = 'none';
+      
+      // 如果当前已经生成了封面，重新生成不带图片的版本
+      if (canvas.style.display === 'block') {
+        generateCover();
+      }
     });
 
     // 文字特效控制
@@ -526,14 +613,51 @@
       }
     });
 
+    // 尺寸选择控制
+    document.getElementById('sizeSelect').addEventListener('change', function() {
+      const customSizeRow = document.getElementById('customSizeRow');
+      if (this.value === 'custom') {
+        customSizeRow.style.display = 'block';
+      } else {
+        customSizeRow.style.display = 'none';
+      }
+      
+      if (canvas.style.display === 'block') {
+        generateCover();
+      }
+    });
+
+    // 自定义尺寸输入框事件
+    ['customWidth', 'customHeight'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        if (canvas.style.display === 'block' && document.getElementById('sizeSelect').value === 'custom') {
+          generateCover();
+        }
+      });
+    });
+
+    // 字体选择器样式更新
+    document.getElementById('fontSelect').addEventListener('change', function() {
+      const selectedFont = this.value;
+      this.style.fontFamily = selectedFont;
+    });
+
     function generateCover() {
       const bgColor = document.getElementById('bgColor').value;
       const text = document.getElementById('coverText').value;
       const font = document.getElementById('fontSelect').value;
       const textColor = document.getElementById('textColor').value;
-      const size = document.getElementById('sizeSelect').value.split('x');
-      const width = parseInt(size[0]);
-      const height = parseInt(size[1]);
+      const sizeValue = document.getElementById('sizeSelect').value;
+      
+      let width, height;
+      if (sizeValue === 'custom') {
+        width = parseInt(document.getElementById('customWidth').value) || 1200;
+        height = parseInt(document.getElementById('customHeight').value) || 800;
+      } else {
+        const size = sizeValue.split('x');
+        width = parseInt(size[0]);
+        height = parseInt(size[1]);
+      }
 
       canvas.width = width;
       canvas.height = height;
@@ -678,7 +802,7 @@
       });
     });
 
-    ['fontSelect', 'sizeSelect', 'textEffect'].forEach(id => {
+    ['fontSelect', 'textEffect'].forEach(id => {
       document.getElementById(id).addEventListener('change', () => {
         if (canvas.style.display === 'block') {
           generateCover();
